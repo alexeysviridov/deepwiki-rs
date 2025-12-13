@@ -152,6 +152,8 @@ pub enum CodePurpose {
     Dao,
     /// Context component
     Context,
+    /// command-line interface (CLI) commandsx or message/request handlers
+    Command,
     /// Other uncategorized or unknown
     #[serde(alias = "unknown", alias = "misc", alias = "miscellaneous")]
     Other,
@@ -185,6 +187,7 @@ impl CodePurpose {
             CodePurpose::Types => "Program Interface Definition",
             CodePurpose::Dao => "Data Access Layer Component",
             CodePurpose::Context => "Context Component",
+            CodePurpose::Command => "Command",
         }
     }
 }
@@ -338,6 +341,9 @@ impl CodePurposeMapper {
         }
         if name_lower.contains("readme") || name_lower.contains("doc") {
             return CodePurpose::Doc;
+        }
+        if name_lower.contains("cli") || name_lower.contains("commands") {
+            return CodePurpose::Command;
         }
 
         CodePurpose::Other
